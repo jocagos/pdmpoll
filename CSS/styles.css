@@ -1,0 +1,40 @@
+
+body{
+
+
+}
+
+
+
+.jumbotron{
+
+	margin-left: 200px;
+	margin-right: 200px;
+	margin-top: 20px;
+
+	min-width: 600px;
+
+
+}
+
+.btn-primary{
+
+	float: right;
+	margin-right: 10px;
+}
+
+.btn-info{
+
+	margin-left: 38px;
+}
+
+.btn-danger{
+
+	float: right;
+}
+
+.logOut{
+
+	float: right;
+}
+
