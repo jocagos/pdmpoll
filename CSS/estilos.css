@@ -1,257 +1,229 @@
-*{
-	margin: 0;
-	padding: 0;
-	/*Webkit*/
-	box-sizing: border-box;
-	/*Moz*/
-	box-sizing: border-box;
-	box-sizing: border-box;
+* {
+    margin: 0;
+    padding: 0;
+    /*Webkit*/
+    box-sizing: border-box;
+    /*Moz*/
+    box-sizing: border-box;
+    box-sizing: border-box;
 }
 
-body{
-
-	background: url(../polls.jpg);
-	background-size: cover;
-	background-size: cover;
-	background-attachment: fixed;
-	font-family: Roboto;
+body {
+    background: url(../foto.jpg);
+    background-size: cover;
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: Roboto;
 }
+
 
 /*Propiedades del nav bar*/
-nav{
 
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100px;
-	padding: 10px 100px;
-	box-sizing: border-box;
-	transition: .3s;
-	background: rgba(0,0,0,.8);
-	color: #fff;
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    padding: 10px 100px;
+    box-sizing: border-box;
+    transition: .3s;
+    background: rgba(0, 0, 0, .8);
+    color: #fff;
 }
 
-	nav.black{
+nav.black {
+    background: rgba(0, 0, 0, .8);
+    height: 100px;
+    padding: 10px 100px;
+}
 
-		background: rgba(0,0,0,.8);
-		height: 100px;
-		padding: 10px 100px;
+nav .logo {
+    padding: 22px 20px;
+    height: 80px;
+    float: left;
+    font-size: 24px;
+    transition: .3s;
+}
 
-	}
+nav.black .logo {
+    color: #fff;
+}
 
-	nav .logo{
-		padding: 22px 20px;
-		height: 80px;
-		float: left;
-		font-size: 24px;
-		transition: .3s;
-	}
+nav ul {
+    list-style: none;
+    float: right;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    color: #fff;
+}
 
-	nav.black .logo{
+nav ul li {
+    list-style: none;
+}
 
-		color: #fff;
-	}
+nav ul li a {
+    line-height: 80px;
+    color: #fff;
+    padding: 12px 30px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: .3s;
+}
 
-	nav ul{
+nav.black ul li a {
+    color: #fff;
+}
 
-		list-style: none;
-		float: right;
-		margin: 0;
-		padding: 0;
-		display: flex;
-		color: #fff;
-	}
+nav.black ul li a:focus {
+    outline: none;
+}
 
-	nav ul li{
-		list-style: none;
-	}
+nav.black ul li a.active {
+    background: #E2472F;
+}
 
-	nav ul li a{
-		line-height: 80px;
-		color: #fff;
-		padding: 12px 30px;
-		text-decoration: none;
-		text-transform: uppercase;
-		transition: .3s;
-	}
-
-	nav.black ul li a{
-
-		color: #fff;
-
-	}
-
-	nav.black ul li a:focus{
-
-		outline: none;
-	}
-
-	nav.black ul li a.active{
-		background: #E2472F;
-	}
 
 /*Propiedades de el contenedor del form*/
 
-.contenedor-form{
-
-	
-	position: relative;
-
-	background: rgba(0,0,0,.7);
-	width: 100%;
-	max-width: 500px;
-	margin: 150px auto;
-	color: #fff;
-	border-radius: 5px;
-
-	/*padding: 40px;*/
+.contenedor-form {
+    position: relative;
+    background: rgba(0, 0, 0, .7);
+    width: 100%;
+    max-width: 500px;
+    margin: 150px auto;
+    color: #fff;
+    border-radius: 5px;
+    /*padding: 40px;*/
 }
 
-	.contenedor-form .toggle{
+.contenedor-form .toggle {
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    width: 100px;
+    height: 30px;
+    font-size: 12px;
+    line-height: 25px;
+    text-align: center;
+    /*Bordes color*/
+    border-top: 2px solid #ff851b;
+    border-bottom: 2px solid #ff851b;
+    /*Animacion de hover se tarde un poco*/
+    transition: all .5s ease;
+    cursor: pointer
+}
 
-		position: absolute;
 
-		top: 7px;
-		right: 7px;
-		width: 100px;
-		height: 30px;
-		font-size: 12px;
-		line-height: 25px;
-		text-align: center;
+/*Propiedad para darle espaciado a las letras*/
 
-		/*Bordes color*/
-		border-top: 2px solid #ff851b;
-		border-bottom: 2px solid #ff851b;
+.contenedor-form .toggle span {
+    letter-spacing: 1px;
+}
 
-		/*Animacion de hover se tarde un poco*/
-		transition: all .5s ease;
-		cursor: pointer
 
-	}
+/*Propiedades para resaltar el botton*/
 
-		/*Propiedad para darle espaciado a las letras*/
+.contenedor-form .toggle:hover {
+    border-top: 2px solid #0075d9;
+    border-bottom: 2px solid #0075d9;
+}
 
-		.contenedor-form .toggle span{
-			letter-spacing: 1px;
-
-		}
-
-		/*Propiedades para resaltar el botton*/
-
-		.contenedor-form .toggle:hover{
-
-			border-top: 2px solid #0075d9;
-			border-bottom: 2px solid #0075d9;
-
-		}
-
-	.contenedor-form h2{
-
-		margin: 0 0 28px 0;
-		font-size: 20px;
-		font-weight: 400;
-		line-height: 1;
-	}
+.contenedor-form h2 {
+    margin: 0 0 28px 0;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1;
+}
 
 .contenedor-form input[type="text"],
 .contenedor-form input[type="password"],
-.contenedor-form input[type="email"]{
-
-	outline: none;
-	background: rgba(0,0,0,.5);
-	display: block;
-	width: 100%;
-	padding: 10px 15px;
-	color: #fff; 
-	border: none;
-	border-radius: 2px;
-	border-bottom: 4px solid #ff851b;
-	font-family: Roboto;
-	font-size: 14px;
-	font-weight: normal;
-	margin: 0 0 20px 0;
-
-	/*Propiedades para cambio de color*/
-	transition: all .5s ease;
-
+.contenedor-form input[type="email"] {
+    outline: none;
+    background: rgba(0, 0, 0, .5);
+    display: block;
+    width: 100%;
+    padding: 10px 15px;
+    color: #fff;
+    border: none;
+    border-radius: 2px;
+    border-bottom: 4px solid #ff851b;
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: normal;
+    margin: 0 0 20px 0;
+    /*Propiedades para cambio de color*/
+    transition: all .5s ease;
 }
 
-	/*Animacion de cambio de color*/
 
-	.contenedor-form input[type="text"]:focus,
-	.contenedor-form input[type="password"]:focus,
-	.contenedor-form input[type="email"]:focus{
+/*Animacion de cambio de color*/
 
-		border-bottom: 4px solid #0075d9;
+.contenedor-form input[type="text"]:focus,
+.contenedor-form input[type="password"]:focus,
+.contenedor-form input[type="email"]:focus {
+    border-bottom: 4px solid #0075d9;
+}
 
-	}
 
 /*Propiedades del botton de login*/
-.contenedor-form input[type="submit"]{
 
-	background: #ff851b;
-	color: #fff;
-	border: none;
-	width: 100%;
-	padding: 10px 0;
-	font-weight: normal;
-	font-family: Roboto;
-	letter-spacing: 1px;
-	font-size: 16px;
-	cursor: pointer;
-
-	/*Propiedades de animacion de cambio de color*/
-
-	transition: all .5s ease;
+.contenedor-form input[type="submit"] {
+    background: #ff851b;
+    color: #fff;
+    border: none;
+    width: 100%;
+    padding: 10px 0;
+    font-weight: normal;
+    font-family: Roboto;
+    letter-spacing: 1px;
+    font-size: 16px;
+    cursor: pointer;
+    /*Propiedades de animacion de cambio de color*/
+    transition: all .5s ease;
 }
 
-.contenedor-form input[type="submit"]:hover{
-
-	background: rgba(0,117,217,0.7);
+.contenedor-form input[type="submit"]:hover {
+    background: rgba(0, 117, 217, 0.7);
 }
+
 
 /*Propiedades para resetear el password*/
 
-.contenedor-form .reset-password{
-
-	background: rgba(0,117,217,0.9);
-	width: 100%;
-	padding: 15px 0;
-	text-align: center;
-	/*Propiedad de curveado de la esquina*/
-	border-bottom-right-radius: 5px;
-	border-bottom-left-radius: 5px;
+.contenedor-form .reset-password {
+    background: rgba(0, 117, 217, 0.9);
+    width: 100%;
+    padding: 15px 0;
+    text-align: center;
+    /*Propiedad de curveado de la esquina*/
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
-	
-	/*Cambio de color y decoracion al texto*/
-	.contenedor-form .reset-password a{
 
-		color: #fff;
-		text-decoration: none;
-		font-size: 16px;
-	}
+
+/*Cambio de color y decoracion al texto*/
+
+.contenedor-form .reset-password a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+}
+
 
 /*Animacion para esconder el primer formulario*/
+
+
 /*Primero le ponemos que oculte los dos formularios: Display: none;*/
 
-.contenedor-form .formulario{
-
-	padding: 40px;
-
-	display: none;
+.contenedor-form .formulario {
+    padding: 40px;
+    display: none;
 }
+
 
 /*Le decimos que nos muestre el primer formulario*/
 
-.contenedor-form .formulario:nth-child(2){
-
-	display: block;
+.contenedor-form .formulario:nth-child(2) {
+    display: block;
 }
-
-
-
-
-
-
-

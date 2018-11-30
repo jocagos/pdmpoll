@@ -1,60 +1,98 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <title>PDMPoll</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="css.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.js"></script>
-    <script src="checkpoll.js"></script>
+    <meta charset='utf-8'>
+    <link rel="stylesheet" type="text/css" href="CSS/styles.css">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="JS/funciones.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
 </head>
 
 <body>
 
-    <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a href='index.html' class="navbar-brand">PDMPoll</a>
-            </div>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="addpoll.html">PDMPoll</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="myPolls.html">MyPolls<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"></a>
+                </li>
+
+                <li class="nav-item">
+
+                    <a class="nav-link" onclick=logout() href="index.html">LogOut</a>
+
+                </li>
+
+            </ul>
         </div>
     </nav>
 
-    <div class="container-fluid">
-        <div class="app-container" ng-app="pollApp" ng-controller="pollController">
 
-            <div class="well well-lg">
+    <div class="jumbotron">
 
-                <div class="form-group">
-                    <label>Question:</label>
-                    <input type="text" ng-model="question" class="form-control input-lg">
-                    <hr size=10>
-                </div>
-                <div class="options">
-                    <div class="form-group row" ng-repeat="x in inputs">
-                        <div class="col-md-3"><label>Option {{x.index}}:</label></div>
-                        <div class="col-md-9"><input type="text" ng-model="x.val" class="form-control"></div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <button class="btn btn-primary btn-block" ng-click="addOption()">Add option</button>
-                    </div>
-                    <div class="col-md-6">
-                        <button class="btn btn-success btn-block" ng-click="submit()">Create poll</button>
-                    </div>
-                </div>
+        <div id="Header">
 
-            </div>
+            <h2>Titulo:</h2>
+            <input type='text' class='form-control' name='title' class='title' id='T'>
 
-            <div ng-show="err" class="well-sm text-danger bg-danger">{{errorString}}</div>
+            <br>
+
+            <h2>Dependencia:</h2>
+            <input type='text' class='form-control' name='dep' class='dep' id='D'>
+            <br>
+            <h2>Descripcion:</h2>
+            <input type='text' class='form-control' name='des' class='des' id='DS'>
 
         </div>
+
+        <br>
+
+        <div id="encuestaContainer" class="form-group">
+
+
+            <div id="preguntaContainer">
+
+                <h3>Pregunta 1: </h3>
+                <input type="text" class="form-control" name="question" class="question" id="Q1">
+
+                <br>
+
+
+                <h4>Escribe las posibles respuestas:</h4>
+
+                <br>
+
+                <ul class="list-group" id="Q1poll-options">
+                    <li class="list-group-item"><input type="text" class="Q1answear form-control" maxlength="100" name=""></li>
+                    <li class="list-group-item"><input type="text" class="Q1answear form-control" maxlength="100" name=""></li>
+                </ul>
+                <br>
+                <button type="button" onclick=addPOption(1) class="btn btn-lg btn-info">Añadir Opcion</button>
+            </div>
+
+
+            <br>
+        </div>
+        <button type="button" onclick=addPQuestion() class="btn btn-lg btn-info">Añadir Pregunta</button>
+        <!-- <a href="myPolls.html"> -->
+        <button type="button" onclick=addPoll() class="btn btn-lg btn-primary">Crear Encuesta</button>
+        <!-- </a> -->
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+
 </body>
 
 </html>

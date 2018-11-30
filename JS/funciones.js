@@ -1,3 +1,5 @@
+var qIdx = 1;
+
 function cargarPeliculas() {
     crearPeliculas();
 }
@@ -17,7 +19,7 @@ function crearPeliculas() {
 
     appAjax = new XMLHttpRequest();
     // Abrir el Ajax para cargar las peliculas al inicio de la aplicacion
-    appAjax.open('GET', 'http://localhost/uaqflix/php/peliculas.php');
+    appAjax.open('GET', 'http://localhost/Polls/php/peliculas.php');
     appAjax.send();
     appAjax.onreadystatechange = function() {
         if (appAjax.readyState == 4 && appAjax.status == 200) {
@@ -56,45 +58,66 @@ function animacionPeliculas() {
     }
 }
 
-// Buscar peliculas
-function _buscar() {
-    // Capturar el valor del buscador
-    buscar = document.getElementById('buscador');
+function addPOption(i) {
+    poller = document.getElementById('Q' + i + 'poll-options');
+    poller.innerHTML += '\n<li class="list-group-item"><input type="text" class="Q' + i + 'answear form-control" maxlength="100" name=""></li>';
+}
 
-    if (buscar.value != "") {
-        // Crear ajax
-        buscarAjax = new XMLHttpRequest;
-        buscarAjax.open('GET', 'http://localhost/uaqflix/php/buscar.php?search=' + buscar.value);
-        buscarAjax.send();
-        buscarAjax.onreadystatechange = function() {
-            if (buscarAjax.readyState == 4 && buscarAjax.status == 200) {
-                if (buscarAjax.responseText != "none") {
-                    // Guardar el resultado del ajax
-                    pelicula = JSON.parse(buscarAjax.responseText);
-                    // Recorrido de todas las peliculas
-                    div = "";
-                    for (i = 0; i < pelicula.length; i++) {
-                        // Crear diferentes div de las peliculas
-                        div += "<div class='pelicula oculto'" +
-                            "onclick='verPelicula(this.id)' id='" + pelicula[i].id + "'>" +
-                            "<div class='pelicula-img'><img src='" + pelicula[i].img + "' title='" + pelicula[i].descripcion + "'></div>" +
-                            "<div class='pelicula-nombre'>" + pelicula[i].nombre + "</div>" +
-                            "<div class='pelicula-categoria'>" + pelicula[i].categoria + "</div>" +
-                            "<div class='pelicula-duracion'>" + pelicula[i].duracion + "</div>" +
-                            "</div>";
-                        // Mandamos el div al inicio.html
-                    }
-                    document.querySelector('section').innerHTML = div;
-                    peliculas = document.querySelectorAll('.pelicula');
-                    i = 0;
-                    // Animacion de las peliculas
-                    animacionPeliculas();
-                }
+function addPQuestion() {
+    poller = document.getElementById('preguntaContainer');
+    qIdx++;
+    poller.innerHTML += '<br>\n<h3>Pregunta ' + qIdx + ': </h3><input type="text" class="form-control" name="question" class="question" id="Q' + qIdx + '"><br><h4>Escribe las posibles respuestas:</h4><br><ul class="list-group" id="Q' + qIdx + 'poll-options"><li class="list-group-item"><input type="text" class="Q' + qIdx + 'answear form-control" maxlength="100" name=""></li><li class="list-group-item"><input type="text" class="' + 'Q' + qIdx + 'answear form-control" maxlength="100" name=""></li></ul><br><button type="button" onclick=addPOption(' + qIdx + ') class="btn btn-lg btn-info">Añadir Opcion</button>';
+}
+
+function addPoll() {
+    var quests = {};
+    quests['title'] = document.getElementById('T').value;
+    quests['dep'] = document.getElementById('D').value;
+    quests['user'] = localStorage.getItem('idUsuario');
+    quests['des'] = document.getElementById('DS').value;
+    var keys = [];
+    for (var i = 1; i <= qIdx; ++i) {
+        var Q = document.getElementById('Q' + (i)).value;
+        var elem = document.getElementsByClassName('Q' + i + 'answear form-control');
+        var options = [];
+        keys.push(Q);
+        for (var j = 0; j < elem.length; j++) {
+            if (typeof elem[j].value !== 'undefined') {
+                options.push(elem[j].value);
             }
         }
-    } else {
-        cargarPeliculas();
+        quests[Q] = options;
     }
+    // var a = s.split('\n').filter(listE => listE.length > 0 && !(/^\s+$/.test(listE)));
+    // a = a.map(Function.prototype.call, String.prototype.trim);
+    console.log(quests);
+    var dataPost = {};
+    dataPost['questions'] = keys;
+    dataPost['vals'] = { quests };
+    var dataStr = JSON.stringify(quests);
+    console.log('str: >' + dataStr + '<');
+    console.log(quests);
+    req = new XMLHttpRequest();
+    //?q=' + question
+    var url = 'http://localhost:9999/Polls/php/addpoll.php';
+    // for (var i = 0; i < options.length; ++i) {
+    //     url += '&p' + i + '=' + options[i];
+    // }
+    req.open('POST', url);
+    req.setRequestHeader('Content-Type', 'application/json', true);
+    req.onreadystatechange = function() {
+        if (req.readyState == 4 && req.status == 200) {
+
+            console.log('RT: ' + req.responseText);
+        }
+        // else {
+        //     alert('loginAjax.responseText = ' + loginAjax.readyState + ' status = ' + loginAjax.status + ' statusText = ' + loginAjax.statusText);
+        //     setTimeout(function() {
+        //         document.querySelector('.respuesta').style.opacity = "0";
+        //     }, 3000)
+        // }
+    }
+    req.send(dataStr);
 }
 
 function sleep(milliseconds) {
@@ -113,10 +136,14 @@ function login() {
     password = document.getElementById('password').value;
     // Crear ajax
     loginAjax = new XMLHttpRequest();
-    loginAjax.open('GET', 'http://localhost/Polls/php/login.php?u=' + usuario + '&pw=' + password);
-    loginAjax.send();
+    var url = 'http://localhost:9999/Polls/php/login.php';
+    var datos = { 'user': usuario, 'pass': password };
+    loginAjax.open('POST', url);
+    loginAjax.setRequestHeader('Content-Type', 'application/json', true);
     loginAjax.onreadystatechange = function() {
+        // alert('rs: ' + loginAjax.readyState + ' s: ' + loginAjax.status);
         if (loginAjax.readyState == 4 && loginAjax.status == 200) {
+
             if (loginAjax.responseText != "0") {
                 // Asignar idUsuario para verificar que este iniciando
                 localStorage.setItem('idUsuario', loginAjax.responseText);
@@ -124,7 +151,7 @@ function login() {
                 alert("Has iniciado de forma exitosa. ¡Disfruta las películas!");
                 // Mandar a inicio.html
                 // setTimeout(function() {
-                window.location.assign("inicio.html");
+                window.location.assign("http://localhost:9999/Polls/addpoll.html");
                 // }, 2500)
 
             } else {
@@ -136,12 +163,14 @@ function login() {
             }
         }
         // else {
-        //     alert("Los datos ingresados son incorrectos, favor de verificar.");
+        //     alert('loginAjax.responseText = ' + loginAjax.readyState + ' status = ' + loginAjax.status + ' statusText = ' + loginAjax.statusText);
         //     setTimeout(function() {
         //         document.querySelector('.respuesta').style.opacity = "0";
         //     }, 3000)
         // }
     }
+    loginAjax.send(JSON.stringify(datos));
+
 }
 // Función para registrar un nuevo usuario
 function registrarse() {
@@ -151,10 +180,16 @@ function registrarse() {
     password = document.getElementById('passwordR').value;
 
     logAjax = new XMLHttpRequest();
-    logAjax.open('GET', 'php/registrarse.php?u=' + usuario + '&c=' + correo + '&pw=' + password);
-    logAjax.send();
+    var url = 'php/registrarse.php';
+    logAjax.open('POST', url);
+    logAjax.setRequestHeader('Content-Type', 'application/json');
+    d = {};
+    d['user'] = usuario;
+    d['pass'] = password;
+    d['email'] = correo;
     logAjax.onreadystatechange = function() {
         if (logAjax.readyState == 4 && logAjax.status == 200) {
+            alert('rt: ' + logAjax.responseText);
             if (logAjax.responseText == "1") {
 
                 // Exito con el registro de usuario
@@ -221,12 +256,13 @@ function registrarse() {
             }
         }
     }
+    logAjax.send(JSON.stringify(d));
 }
 // Función para cerrar sesión
 function logout() {
     outAjax = new XMLHttpRequest();
-    outAjax.open('GET', 'http://localhost/uaqflix/php/logout.php');
-    outAjax.send();
+    var url = 'http://localhost:9999/Polls/php/logout.php';
+    outAjax.open('POST', url);
     outAjax.onreadystatechange = function() {
         if (outAjax.readyState == 4 && outAjax.status == 200) {
             localStorage.setItem('idUsuario', 0);
@@ -238,6 +274,8 @@ function logout() {
 
         }
     }
+    var u = localStorage.getItem('idUsuario');
+    outAjax.send();
 }
 // Ver una pelicula seleccionada
 function verPelicula(id) {
@@ -248,30 +286,34 @@ function verPelicula(id) {
 }
 
 function cargarDetalles() {
-    // Capturar el valor del id de la pelicula en el local storage
-    idPelicula = localStorage.getItem('idPelicula');
-    // Crear ajax
-    cargarAjax = new XMLHttpRequest();
-    cargarAjax.open('GET', 'http://localhost/uaqflix/php/detalles.php?idP=' + idPelicula);
-    cargarAjax.send();
 
-    cargarAjax.onreadystatechange = function() {
-        if (cargarAjax.readyState == 4 && cargarAjax.status == 200) {
-            pelicula = JSON.parse(cargarAjax.responseText);
-            for (x = 0; x < pelicula.length; x++) {
-                detalles = "<div class='pelicula-detalles'>" +
-                    "<div class='pelicula-img-desc'><img src='" + pelicula[x].img + "'></div>" +
-                    "<h1 class='pelicula-titulo'>" + pelicula[x].nombre + " </h1>" +
-                    "<h4 class='pelicula-desc'>" + pelicula[x].descripcion + "</h4>" +
-                    "<h3 style='margin-left: 20%; '>Trailer: </h3>" +
-                    "<video class='pelicula-trailer' controls><source src='" + pelicula[x].trailer + "' type='video/mp4'>Por favor actualiza tu navegador para disfrutar del contenido</video>"
-                "</div>";
-                document.querySelector('section').innerHTML += detalles;
+    var u = localStorage.getItem('idUsuario');
+    // Crear ajax
+    var req = new XMLHttpRequest();
+    var url = 'http://localhost:9999/Polls/php/detalles.php';
+    req.open('POST', url);
+    var d = {};
+    d['user'] = u;
+    var s = JSON.stringify(d);
+    req.onreadystatechange = function() {
+        if (req.readyState == 4 && req.status == 200) {
+            if (req.responseText) {
+                if (req.responseText != '[]') {
+                    polls = JSON.parse(req.responseText);
+                    console.log(polls);
+                }
+
             }
+            // for (x = 0; x < polls.length; x++) {
+            //     console.log(polls);
+            //     //var pollItem = '<li class="list-group-item list-group-item-primary" id="P' + x + '><button class="btn btn-dark"></button> <button class="btn btn-danger">Borrar</button></li>';
+            //     //document.getElementById('poll-list').innerHTML += detalles;
+            // }
         }
     }
+    req.send(JSON.stringify(d));
 }
 
 function acerca() {
-    alert('UAQflix Inc. proporciona servicios de streaming gratuitos.');
+    alert('PDMPoll Inc. proporciona servicios de polling gratuitos.');
 }
