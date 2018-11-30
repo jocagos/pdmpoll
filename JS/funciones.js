@@ -298,11 +298,11 @@ function cargarDetalles() {
     req.onreadystatechange = function() {
         if (req.readyState == 4 && req.status == 200) {
             if (req.responseText) {
-                if (req.responseText != '[]') {
-                    polls = JSON.parse(req.responseText);
-                    console.log(polls);
+                polls = JSON.parse(req.responseText);
+                for (var i = 0; i < polls.length; ++i) {
+                    var pollItem = '<li class="list-group-item list-group-item-primary" id="P' + i + '><button class="btn btn-dark">' + polls[i]['title'] + '</button> <button class="btn btn-danger onclick=deletepoll(' + polls[i]['title'] + ')">Borrar</button></li>';
+                    document.getElementById('poll-list').innerHTML += pollItem;
                 }
-
             }
             // for (x = 0; x < polls.length; x++) {
             //     console.log(polls);
