@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-<head>
+  <head>
     <title>Responde la encuesta</title>
     <meta charset='utf-8'>
     <link rel="stylesheet" type="text/css" href="CSS/styles.css">
@@ -9,54 +9,57 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <script src='schema.js'></script>
-</head>
+    
+  </head>
 
-<body>
+  <body>
 
     <div class="jumbotron">
 
-        <h1>{{ title }}</h1>
+      <h1 id="pregunta"></h1>
 
-        <div id="opciones">
+      <div id="opciones">
 
-            <div class="input-group-prepend">
-                <div class="input-group-text" ng-repeat="x in inputs">
-                    <div class="col-md-3"><label>{{x.index}}:</label></div>
-                    <div class="col-md-9"><input type="text" ng-model="x.val" class="form-control"></div>
-                </div>
+        <!--<div class="input-group-prepend">
+            <div class="input-group-text" ng-repeat="x in inputs">
+              <div class="col-md-3"><label>{{x.index}}:</label></div>
+              <div class="col-md-9"><input type="text" ng-model="x.val" class="form-control"></div>
             </div>
-            <!-- <div class="input-group">
-                
-                <div class="input-group-prepend">
-                    <div class="input-group-text">
-                        <input type="radio" name="opcion" aria-label="Radio button for following text input">
-                    </div>
-                </div>
-                <li class="form-control">Opcion 1</li>
-
+        </div>-->
+        <div class="input-group" id>
+          
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <input type="radio" name="opcion" aria-label="Radio button for following text input">
             </div>
+          </div>
+          <li class="form-control">Opcion 1</li>
 
-            <div class="input-group">
-
-                <div class="input-group-prepend">
-                    <div class="input-group-text">
-                        <input type="radio" name="opcion" aria-label="Radio button for following text input">
-                    </div>
-                </div>
-                <li class="form-control">Opcion 2</li>
-
-            </div> -->
         </div>
 
-        <br>
+        <div class="input-group">
 
-        <button class="btn btn-primary">Siguiente</button>
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <input type="radio" name="opcion" aria-label="Radio button for following text input">
+            </div>
+          </div>
+          <li class="form-control">Opcion 2</li>
 
+        </div>
+      </div>
+
+      <br>
+      <button class="btn btn-primary" id="enviar">Mandar</button>
+      
+      <button class="btn btn-primary" id="prev">Anterior</button>
+      
+      <button class="btn btn-primary" id="next">Siguiente</button>
+      
 
 
     </div>
 
-</body>
+  </body>
 
 </html>

@@ -1,61 +1,101 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
-<head>
-    <title>PDMPoll</title>
+  <head>
+    <title>Login pdmpoll</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="css.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.js"></script>
-    <script src='schema.js'></script>
-    <script src="checkpoll.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/estilos.css">
+    <script type="text/javascript" src="js/funciones.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
 
-</head>
+  </head>
 
-<body>
+  <body>
 
-    <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a href='index.html' class="navbar-brand">PDMPoll</a>
-            </div>
-        </div>
-    </nav>
+    <!-- NavBar contenedor -->
+    <div class="contenedor-nav">
 
-    <div class="container-fluid">
-        <div class="app-container" ng-app="pollApp" ng-controller="pollController">
+      <nav>
 
-            <div class="well well-lg">
+        <!-- Contenedor Logo -->
 
-                <div class="form-group">
-                    <label>Question:</label>
-                    <input type="text" ng-model="question" class="form-control input-lg">
-                    <hr size=10>
-                </div>
-                <div class="options">
-                    <div class="form-group row" ng-repeat="x in inputs">
-                        <div class="col-md-3"><label>Option {{x.index}}:</label></div>
-                        <div class="col-md-9"><input type="text" ng-model="x.val" class="form-control"></div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <button class="btn btn-primary btn-block" ng-click="addOption()">Add option</button>
-                    </div>
-                    <div class="col-md-6">
-                        <button class="btn btn-success btn-block" ng-click="submit()">Create poll</button>
-                    </div>
-                </div>
+        <div class="logo">PDMPoll</div>
 
-            </div>
+        <!-- Lista de botones	 -->
+        <ul>
+          <li><a href="./index.html">Inicio</a></li>
+          <li class="hoverable"><a onclick=acerca()>Acerca</a></li>
 
-            <div ng-show="err" class="well-sm text-danger bg-danger">{{errorString}}</div>
+        </ul>
 
-        </div>
+      </nav>
+
+
     </div>
-</body>
+
+    <!-- Contenedor de todo el form -->
+    <div class="contenedor-form">
+
+      <!-- Contenedor de toggle  -->
+      <div class="toggle">
+
+        <span>Crear Cuenta</span>
+
+      </div>
+
+      <!-- Contenedor de formulario -->
+
+      <div class="formulario">
+
+        <h2>Iniciar Sesion</h2>
+        <form>
+
+          <!-- Inputs de Incio de Sesion -->
+
+          <input type="text" name="" id="ingreso" placeholder="Usuario" required>
+
+          <input type="password" id="password" name="" placeholder="Contraseña" required>
+
+          <input type="submit" onclick="login()" name="" value="Iniciar Sesion">
+
+
+        </form>
+
+      </div>
+
+      <div class="formulario">
+
+        <h2>Crea tu Cuenta</h2>
+        <form>
+
+          <!-- Inputs de registro de usuario -->
+
+          <input type="text" id="usuarioR" name="" placeholder="Usuario" required>
+
+          <input type="password" id="passwordR" name="" placeholder="Contraseña" required>
+
+          <input type="email" name="" id="correoR" placeholder="Correo Electronico" required>
+
+          <!-- <input type="text" name="" placeholder="Telelfono" required> -->
+
+          <input type="submit" onclick="registrarse()" name="" value="Registrarse">
+
+
+        </form>
+
+      </div>
+
+      <div class="reset-password">
+
+        <a href="#">Olvide mi contrasena</a>
+
+      </div>
+
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+
+  </body>
 
 </html>
