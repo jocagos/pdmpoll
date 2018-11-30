@@ -300,7 +300,7 @@ function cargarDetalles() {
             if (req.responseText) {
                 polls = JSON.parse(req.responseText);
                 for (var i = 0; i < polls.length; ++i) {
-                    var pollItem = '<li class="list-group-item list-group-item-primary" id="P' + i + '><button class="btn btn-dark">' + polls[i]['title'] + '</button> <button class="btn btn-danger onclick=deletepoll(' + polls[i]['title'] + ')">Borrar</button></li>';
+                    var pollItem = '<li class="list-group-item list-group-item-primary" id="P' + i + '><button class="btn btn-dark">' + polls[i]['title'] + '</button> <button class="btn btn-danger onclick="deletepoll(\'' + polls[i]['title'] + '\')">Borrar</button></li>';
                     document.getElementById('poll-list').innerHTML += pollItem;
                 }
             }
@@ -312,6 +312,30 @@ function cargarDetalles() {
         }
     }
     req.send(JSON.stringify(d));
+}
+
+function deletepoll(poll) {
+    if (confirm('Seguro que quiere eliminar ' + poll + '?')) {
+
+        var u = localStorage.getItem('idUsuario');
+        var req = XMLHttpRequest();
+        var url = 'http://localhost:9999/Polls/php/deletepoll.php';
+        req.open('POST', url);
+        var d = {};
+        d['title'] = poll;
+        d['user'] = u;
+        req.onreadystatechange = function() {
+            if (req.readyState == 4 && req.status == 200) {
+                if (req.responseText == 'true') {
+                    alert('Se borro con exito la encuesta');
+                    document.location.reload(true);
+                } else {
+                    alert('Error al intentar borrar');
+                }
+            }
+        }
+        req.send(JSON.stringify(d));
+    }
 }
 
 function acerca() {
